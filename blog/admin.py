@@ -3,10 +3,13 @@ from .models import Post
 # Register your models here.
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['title','created_on','updated_on']
-    list_filter = ['created_on','updated_on']
-    search_fields = ['title','content']
+    list_display = ['title','created','author','publish','updated']
+    list_filter = ['created','author','updated']
+    search_fields = ['title','body']
     prepopulated_fields = {'slug':('title',)}
-    class Meta:
-        model = Post
+    raw_id_fields = ('author',)
+    date_hierarchy = 'publish'
+    
+
+
 admin.site.register(Post,PostAdmin)

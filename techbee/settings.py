@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     #added
     'blog.apps.BlogConfig',
     'taggit',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
@@ -122,7 +124,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
+SITE_ID = 1
 
 # email configure
 

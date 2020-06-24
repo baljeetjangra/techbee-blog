@@ -3,6 +3,7 @@ from ..models import Post
 from django.db.models import Count
 from django.utils.safestring import mark_safe
 import markdown
+from django.shortcuts import get_object_or_404
 
 register = template.Library()
 
@@ -27,3 +28,10 @@ def get_most_commented_posts(count=5):
 @register.filter(name='markdown')
 def markdown_format(text):
     return mark_safe(markdown.markdown(text))
+
+@register.simple_tag
+def total_comments(id):
+    post = get_object_or_404(Post,pk=id)
+    comments = post.comments.filter(active=True)
+    no_of_comments = comments.count()
+    return no_of_comments

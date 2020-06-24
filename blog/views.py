@@ -54,8 +54,8 @@ def post_detail(request,year,month,day,post):
     else:
         comment_form = CommentForm()
     
-    post_tags_ids = post.tags.values_list('id',flat=True)
-    similar_posts = post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
+    post_tags_ids = Post.tags.values_list('id',flat=True)
+    similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
     similar_posts =similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags','-publish')[:4]
     return render(request,'blog/post/detail.html',{'post':post,'new_comment':new_comment,'comment_form':comment_form,'comments':comments,'similar_posts': similar_posts})
 

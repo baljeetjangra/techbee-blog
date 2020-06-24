@@ -15,6 +15,11 @@ def show_latest_posts(count=5):
     latest_posts = Post.published.order_by('-publish')[:count]
     return {'latest_posts':latest_posts}
 
+@register.inclusion_tag('blog/post/feature_post.html')
+def show_feature_post():
+    feature_post = Post.published.latest()
+    return {'feature_post':feature_post}
+
 @register.simple_tag
 def get_most_commented_posts(count=5):
     return Post.published.annotate(total_comments=Count('comments')).order_by('-total_comments')[:count]

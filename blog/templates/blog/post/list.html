@@ -5,10 +5,9 @@
 
 {% block content %}
 {% show_feature_post %}
-<main class="container mx-auto flex mb-4">
-
-    <div class="w-3/4 h-12">
-    
+<main class="container mx-auto ">
+  <div class="flex mb-4">
+    <div class="sm:w-1/2 lg:w-3/4 h-12">
         <section class="text-gray-700 body-font">
             <div class="container px-5 py-24 mx-auto">
                 {% if tag %}
@@ -63,12 +62,15 @@
             </div>
           </section>
     </div>
-    <div class="w-1/4 h-12">
+    <div class="sm:w-1/2 lg:w-1/4 h-12">
         <aside class="text-gray-700 body-font">
             <div class="container px-5 py-24 mx-auto">
               {% include 'sidebar.html' %}
             </div>
         </aside>
+      </div>
+      </div>
+      
 </main>
 
 {% endblock %}

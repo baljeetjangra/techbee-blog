@@ -44,10 +44,13 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.postgres',
     'crispy_forms',
+    'tailwind',
+    'theme',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+TAILWIND_APP_NAME = 'theme'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -135,6 +138,9 @@ STATIC_URL = '/static/'
 
 SITE_ID = 1
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,'static')
+]
 # email configure
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -144,3 +150,7 @@ EMAIL_HOST_USER = 'your_account@gmail.com'
 EMAIL_HOST_PASSWORD = 'your_password'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+#configure
+
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"

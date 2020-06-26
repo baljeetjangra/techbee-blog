@@ -6,8 +6,8 @@
 {% block content %}
 {% show_feature_post %}
 <main class="container mx-auto ">
-  <div class="flex mb-4">
-    <div class="sm:w-1/2 lg:w-3/4 h-12">
+  <div class="flex mb-4 flex-wrap md:flex-no-wrap">
+    <div class="w-full lg:w-3/4 ">
         <section class="text-gray-700 body-font">
             <div class="container px-5 py-24 mx-auto">
                 {% if tag %}
@@ -20,8 +20,8 @@
                  {% for post in posts %}
                 <!-- card -->
 
-                <div class="p-4 lg:w-1/2">
-                  <div class="h-full bg-gray-200 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
+                <div class="p-4 w-full lg:w-1/2">
+                  <div class="h-full  bg-gray-200 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
                     <!-- <h2 class="tracking-widest text-xs title-font font-medium text-gray-500 mb-1">CATEGORY</h2> -->
                     <h1 class="title-font sm:text-2xl text-xl font-medium text-gray-900 mb-3">{{ post.title }}</h1>
                     <p class="leading-relaxed mb-3"> {{ post.body|markdown|truncatewords_html:30 }}</p>
@@ -62,7 +62,7 @@
             </div>
           </section>
     </div>
-    <div class="sm:w-1/2 lg:w-1/4 h-12">
+    <div class="w-full  lg:w-1/4 ">
         <aside class="text-gray-700 body-font">
             <div class="container px-5 py-24 mx-auto">
               {% include 'sidebar.html' %}

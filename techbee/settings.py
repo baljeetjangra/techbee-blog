@@ -11,21 +11,25 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+import dotenv
+import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'c0!tfsokpqn%54dg4rj-=7&_f4wjq$nxd^2u+59y1u_rj7p+k@'
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0','localhost','127.0.0.1','techbee.herokuapp.com']
 
 
 # Application definition
@@ -44,8 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.postgres',
     'crispy_forms',
-    'tailwind',
-    'theme',
+    'whitenoise.runserver_nostatic',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -60,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'techbee.urls'
@@ -96,7 +100,8 @@ DATABASES = {
 
     }
 }
-
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -141,16 +146,21 @@ SITE_ID = 1
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')
 ]
+STATIC_ROOT = os.path.join(BASE_DIR,'collectstatic')
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
+
 # email configure
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'your_account@gmail.com'
-EMAIL_HOST_PASSWORD = 'your_password'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 #configure
 
-NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
